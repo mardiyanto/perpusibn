@@ -1,30 +1,30 @@
-<?
+<?php
 session_start();
 include "../config/timeout.php";
 
-if($_SESSION[login]==1){
+if($_SESSION['login'] == 1){
 	if(!cek_login()){
-		$_SESSION[login] = 0;
+		$_SESSION['login'] = 0;
 	}
 }
 
-if($_SESSION[login]==0){
-  header('location:logout.php');
+if($_SESSION['login'] == 0){
+  header('Location: logout.php');
 }
-else{
-if (empty($_SESSION['user']) AND empty($_SESSION['pass']) AND $_SESSION['login']==0){
- header("location:../index.php"); 
-}
-else{
-    include "../config/koneksi.php";
-	include "../config/class_paging.php";
-	include "file.php"; 
-	include '../config/transaksi_fungsi.php';
-	include "../config/fungsi_rupiah.php";
-	include "../config/fungsi_indotgl.php";
-include "../config/fungsi_combobox.php";
-	include "../config/library.php";
-    $aksi=$_GET[aksi];
+else {
+    if (empty($_SESSION['user']) && empty($_SESSION['pass']) && $_SESSION['login'] == 0){
+        header("Location: ../index.php"); 
+    }
+    else {
+        include "../config/koneksi.php";
+        include "../config/class_paging.php";
+        include "file.php"; 
+        include '../config/transaksi_fungsi.php';
+        include "../config/fungsi_rupiah.php";
+        include "../config/fungsi_indotgl.php";
+        include "../config/fungsi_combobox.php";
+        include "../config/library.php";
+        $aksi = $_GET['aksi'];
 ?>
 
 <!DOCTYPE html>

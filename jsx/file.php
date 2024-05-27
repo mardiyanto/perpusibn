@@ -1,23 +1,23 @@
-<?
+<?php
 ///pemanggilan tabel calon_mhs
-$data=mysql_query("SELECT * FROM tbl_transaksi where status='Kembali'");
-$k2=mysql_num_rows($data);
+$data = mysqli_query($koneksi, "SELECT * FROM tbl_transaksi WHERE status='Kembali'");
+$k2 = mysqli_num_rows($data);
 
-$data2=mysql_query("SELECT * FROM tbl_transaksi where status!=''");
-$k=mysql_num_rows($data2);
+$data2 = mysqli_query($koneksi, "SELECT * FROM tbl_transaksi WHERE status!=''");
+$k = mysqli_num_rows($data2);
 
-$data1=mysql_query("SELECT * FROM tbl_transaksi where status='Pinjam'");
-$k1=mysql_num_rows($data1);
+$data1 = mysqli_query($koneksi, "SELECT * FROM tbl_transaksi WHERE status='Pinjam'");
+$k1 = mysqli_num_rows($data1);
 
-$k3=mysql_query("SELECT * FROM tbl_buku ");
-$kk=mysql_num_rows($k3);
+$k3 = mysqli_query($koneksi, "SELECT * FROM tbl_buku");
+$kk = mysqli_num_rows($k3);
 
-$k3=mysql_query("SELECT * FROM tbl_buku ");
-$kk=mysql_num_rows($k3);
+$k3 = mysqli_query($koneksi, "SELECT * FROM tbl_buku");
+$kk = mysqli_num_rows($k3);
 
-$agt=mysql_query("SELECT * FROM tbl_anggota ");
-$agt=mysql_num_rows($agt);
+$agt = mysqli_query($koneksi, "SELECT * FROM tbl_anggota");
+$agt = mysqli_num_rows($agt);
 
-$posting=mysql_query("SELECT SUM(jumlah_buku)as b FROM tbl_buku");
-$post=mysql_fetch_array($posting);
+$posting = mysqli_query($koneksi, "SELECT SUM(jumlah_buku) AS b FROM tbl_buku");
+$post = mysqli_fetch_array($posting);
 ?>

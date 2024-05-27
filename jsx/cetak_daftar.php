@@ -1,8 +1,8 @@
 <?php
 include "../config/koneksi.php";
 $no_daftar=$_GET['no_daftar'];
-$con=mysql_query("SELECT * FROM calon_mhs WHERE no_daftar='$no_daftar'");
-$hasil=mysql_fetch_array($con);
+$con=mysqli_query($koneksi, "SELECT * FROM calon_mhs WHERE no_daftar='$no_daftar'");
+$hasil=mysqli_fetch_array($con);
 //menentukan hari
 $a_hari = array(1=>"Senin","Selasa","Rabu","Kamis","Jumat", "Sabtu","Minggu");
 $hari = $a_hari[date("N")];
