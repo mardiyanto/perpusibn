@@ -104,12 +104,12 @@ include 'config/transaksi_fungsi.php';
           <!-- sidebar menu: : style can be found in sidebar.less -->
     
 
- <!--<li>
+ <li>
               <a href='xxx.php?module=histori'>
 			  
                 <i class="fa fa-flask fa-fw"></i><span>Peminjaman Anda</span><i class='fa fa-angle-left pull-right'></i>
               </a> 
- </li> -->
+ </li> 
  
  <!--  <li>
               <a href='xxx.php?module=ganti'>

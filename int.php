@@ -107,7 +107,7 @@ elseif ($_GET['module']=='bukulih'){
    	            <th>Judul Buku</th>
    	            
    	            
-   	            <th >Jumlah</th>
+   	            <th >Penulis</th>
              
 					  
 					    <th>Pilihan</th>
@@ -163,9 +163,14 @@ $t=mysqli_fetch_array($tebaru);
 
   <div class='table-responsive'>
   <table  class='table table-striped table-bordered table-hover'>
-  <tr>
-    <td  rowspan='9'><center><img width='200' src='foto/data/$t[gambar]'  title='Lihat $t[pengarang]' /></center></td>
-    <td >judul Buku </td>
+  <tr>";
+  if (!empty($t['gambar'])) {
+    echo "<td rowspan='9'><center><img width='200' src='foto/data/{$t['gambar']}' title='Lihat {$t['pengarang']}' /></center></td>";
+  }
+  else {
+		echo "<td rowspan='9'><center><img width='200' src='foto/data/sampul.jpg' title='Lihat {$t['pengarang']}' /></center></td>";
+	}
+    echo"<td >judul Buku </td>
     <td width='8'>:</td>
     <td>$t[judul]</td>
   </tr>
@@ -206,10 +211,13 @@ $t=mysqli_fetch_array($tebaru);
 	if( $_SESSION['anggota']==''){
 		echo"<a class='btn btn-default' href='xxx.php?module=loginango'>Baca Buku</a> ";
 		}else{
-			echo"
-	<a class='btn btn-default' href='downlot.php?file=$t[file_upload]'>Baca Buku</a>
-	 <a  class='btn btn-primary' href=xxx.php?module=pinjambuku&id=$t[id_buku]>Pinjam</a>
-	";
+	
+	if (!empty($t['file_upload'])) {
+		echo "<a class='btn btn-default' href='downlot.php?file=$t[file_upload]'>Baca Buku</a>";
+	} else {
+		echo "<button class='btn btn-danger' disabled>Softfile tidak ada</button>";
+	}
+  echo " <a  class='btn btn-primary' href=xxx.php?module=pinjambuku&id=$t[id_buku]>Pinjam</a>";
 	 }
 	echo"</td>
   </tr>
@@ -260,7 +268,7 @@ elseif ($_GET['module']=='daftar'){
         <div style='font-weigth:bold; font-size:15px; border-bottom: 1px solid #000000; margin-bottom:5px;'>Peminjam Buku di beri waktu 1 minggu jika dalam satu minggu buku tidak di kembalikan makan akan kena denda Rp.2.000 /Hari</div>
     	<div class='col-md-12'>
 		
-		<label>NIK/NISN</label>
+		<label>NPM</label>
 			<div class='form-group input-group'>
         <input type='text' class='form-control'  name='nim'  required>
 		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
@@ -296,13 +304,13 @@ elseif ($_GET['module']=='daftar'){
  
         <div style='font-weigth:bold; font-size:15px; border-bottom: 1px solid #000000; margin-bottom:5px;'>Peminjam Buku di beri waktu 1 minggu jika dalam satu minggu buku tidak di kembalikan makan akan kena denda Rp.2.000 /Hari</div>
     	<div class='col-md-6'>
-		<label>NIK/NISN</label>
+		<label>NPM</label>
 		<div class='form-group input-group'>
       		 <input type='text' class='form-control'   name='nim'>
 	
 		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
 		
-		<label>Nama Siswa</label>
+		<label>Nama Mahasiswa</label>
 			<div class='form-group input-group'>
         <input type='text' class='form-control'  name='nama' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
 		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
@@ -385,13 +393,13 @@ elseif ($_GET['module']=='daftarango'){
 <form name='form1' id='form_combo' role='form'  method='post' action='simpan.php'>
  
       	<div class='col-md-6'>
-		<label>NIK/NISN</label>
+		<label>NPM</label>
 		<div class='form-group input-group'>
       		 <input type='text' class='form-control'   name='nim'>
 	
 		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
 		
-		<label>Nama Siswa</label>
+		<label>Nama Mahasiswa</label>
 			<div class='form-group input-group'>
         <input type='text' class='form-control'  name='nama' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
 		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
@@ -470,7 +478,7 @@ elseif ($_GET['module']=='loginango'){
  
         <div class='col-md-12'>
 		
-		<label>NIK/NISN</label>
+		<label>NPM</label>
 			<div class='form-group input-group'>
         <input type='text' class='form-control'  name='nim'  required>
 		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
@@ -518,11 +526,11 @@ elseif ($_GET['module']=='histori'){
 <tr>
                                           <th align='center' width='5%' >No</th>
    	            <th width='25%'>Judul Buku</th>
-   	            <th width='25%'>Peminjam</th>
+
    	            <th width='15%'>Tgl Pinjam</th>
    	            <th width='15%'>Tgl Kembali</th>
                 <th width='10%'>Terlambat</th>
-     
+                <th width='25%'>aksi</th>
                                    </tr></thead>
                     <tbody>";
 				    
@@ -533,8 +541,9 @@ elseif ($_GET['module']=='histori'){
                                         echo"<tr>
                                             <td>$no</td>
                                             <td>$p[judul]</td>
-                                            <td>$p[nama]</td>
                                             <td>$p[tgl_pinjam]</td>
+                                            
+                                            
 											<td>$p[tgl_kembali]</td>
 											<td>";
 					$tgl_dateline=$p['tgl_kembali'];
@@ -547,6 +556,7 @@ elseif ($_GET['module']=='histori'){
 					else {
 						echo $lambat." hari";
 					} echo" </td>
+          <td><a class='btn btn-primary btn-sm' href='xxx.php?module=pesanwarning&nim=$p[nim]'>Cetak</a></td>
 					                </tr>
 
                                         
@@ -580,72 +590,69 @@ elseif ($_GET['module']=='pinjambuku'){
   $kembali		= date("d-m-Y", $tuju_hari);
     $tebaru=mysqli_query($koneksi, "SELECT * FROM tbl_buku WHERE id_buku=$_GET[id]");
   $t=mysqli_fetch_array($tebaru);
-   echo "<section class='content'>
-  
-            <!-- Default box -->
-            <div class='box'>
-              <div class='box-header with-border'>
-                <h4><i class='icon fa fa-warning'></i> Detail Buku</h4>
-                <div class='box-tools pull-right'>
-             
-                  <button class='btn btn-box-tool' data-widget='remove' data-toggle='tooltip' title='Remove'><i class='fa fa-times'></i></button>
-                </div>
-              </div>
-    <form name='form1' id='form_combo' role='form'  method='post' action='xxx.php?module=prosespinjam'>
-   
-          <div style='font-weigth:bold; font-size:15px; border-bottom: 1px solid #000000; margin-bottom:5px;'>Peminjam Buku di beri waktu 1 minggu jika dalam satu minggu buku tidak di kembalikan makan akan kena denda Rp.2.000 /Hari</div>
-        <div class='col-md-6'>
-      <label>Kode Buku</label>
-      <div class='form-group input-group'>
-          <input type='text' class='form-control'  value='SMA/$t[isbn], $t[id_buku]'  disabled='disabled'>
-       <input type='hidden' class='form-control' value='SMA/$t[isbn]'  name='no_daftar'>
-        <input type='hidden' class='form-control' value='$t[id_buku]'  name='id_buku'>
-        <input type='hidden' class='form-control' value='$_SESSION[nim]'  name='id_mhs'>
-      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-      
-      <label>Judul Buku</label>
-        <div class='form-group input-group'>
-          <input type='text' class='form-control' value='$t[judul]'  name='buku' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
-      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-      
-      <label>Nama Peminjam Buku</label>
-        <div class='form-group input-group'>
-          <input type='text' class='form-control' value='$_SESSION[nama]'  name='peminjam' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
-      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-          
-    </div>
-    <div class='col-md-6'>	
-  <label>Tanggal Pinjam</label>
-       <div class='form-group input-group'>
-          <input type='text' class='form-control'  value='$pinjam'  disabled='disabled'>
-       <input type='hidden' class='form-control' value='$pinjam'  name='tgl_pinjam'>
-      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-      
-      <label>Tanggal Kembali</label>
-       <div class='form-group input-group'>
-          <input type='text' class='form-control'  value='$kembali'  disabled='disabled'>
-       <input type='hidden' class='form-control' value='$kembali'  name='tgl_kembali'>
-      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-  
-  <label>Keterangan </label>
-        <div class='form-group input-group'>
-          <input type='text' class='form-control'  name='ket' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
-      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-          
-      </div> 
-          
-      <br />
-      <div class='col-md-12'>
-              <button class='btn btn-primary btn-sm' type='submit'>Pinjam</button>
-            
-        <a href='index.php' class='btn btn-primary btn-sm'>Kembali</a></div>
-     </form> 
-              <div class='box-footer'>
-         
-              </div><!-- /.box-footer-->
-            </div><!-- /.box -->
-  
-          </section>";
+   echo "
+   <div class='row'>
+       <div class='col-md-12'>
+           <div class='nav-tabs-custom'>
+               <div class='panel panel-default'>
+                   <div class='panel-heading'>
+                       <h4><i class='icon fa fa-warning'></i> Detail Buku</h4>
+                   </div>
+                   <div class='panel-body'>
+                       <form name='form1' id='form_combo' role='form' method='post' action='xxx.php?module=prosespinjam'>
+                           <div style='font-weight:bold; font-size:15px; border-bottom: 1px solid #000000; margin-bottom:5px;'>
+                               Peminjam Buku diberi waktu 1 minggu, jika dalam satu minggu buku tidak dikembalikan maka akan kena denda Rp.2.000 /Hari
+                           </div>
+                           <div class='col-md-6'>
+                               <label>Kode Buku</label>
+                               <div class='form-group input-group'>
+                                   <input type='text' class='form-control' value='SMA/$t[isbn], $t[id_buku]' disabled='disabled'>
+                                   <input type='hidden' class='form-control' value='SMA/$t[isbn]' name='no_daftar'>
+                                   <input type='hidden' class='form-control' value='$t[id_buku]' name='id_buku'>
+                                   <input type='hidden' class='form-control' value='$_SESSION[nim]' name='id_mhs'>
+                                   <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span>
+                               </div>
+                               <label>Judul Buku</label>
+                               <div class='form-group input-group'>
+                                   <input type='text' class='form-control' value='$t[judul]' name='buku' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\" required>
+                                   <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span>
+                               </div>
+                               <label>Nama Peminjam Buku</label>
+                               <div class='form-group input-group'>
+                                   <input type='text' class='form-control' value='$_SESSION[nama]' name='peminjam' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\" required>
+                                   <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span>
+                               </div>
+                           </div>
+                           <div class='col-md-6'>
+                               <label>Tanggal Pinjam</label>
+                               <div class='form-group input-group'>
+                                   <input type='text' class='form-control' value='$pinjam' disabled='disabled'>
+                                   <input type='hidden' class='form-control' value='$pinjam' name='tgl_pinjam'>
+                                   <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span>
+                               </div>
+                               <label>Tanggal Kembali</label>
+                               <div class='form-group input-group'>
+                                   <input type='text' class='form-control' value='$kembali' disabled='disabled'>
+                                   <input type='hidden' class='form-control' value='$kembali' name='tgl_kembali'>
+                                   <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span>
+                               </div>
+                               <label>Keterangan</label>
+                               <div class='form-group input-group'>
+                                   <input type='text' class='form-control' name='ket' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\" required>
+                                   <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span>
+                               </div>
+                           </div>
+                           <div class='col-md-12'>
+                               <button class='btn btn-primary btn-sm' type='submit'>Pinjam</button>
+                               <a href='index.php' class='btn btn-primary btn-sm'>Kembali</a>
+                           </div>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   ";
   
   }
   }
@@ -705,7 +712,7 @@ elseif ($_GET['module']=='pesanwarning'){
 				<center>
 <b>Biodata Anda </b>
  <p><b> Nama : $ok[nama]</b></p>
-<p> <b>NIK/NISN: $ok[nim]</b></p>
+<p> <b>NPM: $ok[nim]</b></p>
 <p> <b>Judul Buku : $ok[judul]</b></p>
  <p>1. Peminjaman Buku Berhasil Silahkan  cetak bukti Pemijaman Buku/Tujukan Bukti Peminjaman Buku Ke Petugas Perpus </p>
 </center>

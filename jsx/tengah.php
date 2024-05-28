@@ -635,8 +635,8 @@ elseif($aksi=='buku'){
                                     <td>
                                         <center>
                                             <a href='index.php?aksi=editbuku&id_buku=$t[id_buku]' title='Edit'><i class='fa fa-pencil'></i></a>&nbsp;
-                                            <a href='master/buku.php?id_buku=$t[id_buku]&act=hapus&gbr=$t[gambar]' onclick=\"return confirm('Apakah yakin ingin menghapus $t[judul]?')\" title='Hapus'><i class='fa fa-remove'></i></a>&nbsp;
-                                            <a href='index.php?aksi=editbuku&id=$t[id]' title='lihat'><i class='fa fa-external-link-square'></i></a>
+                                            <a href='master/buku.php?act=hapus&id_buku=$t[id_buku]' onclick=\"return confirm('Apakah yakin ingin menghapus $t[judul]?')\" title='Hapus'><i class='fa fa-remove'></i></a>&nbsp;
+                                            <a href='index.php?aksi=editbuku&id_buku=$t[id_buku]' title='lihat'><i class='fa fa-external-link-square'></i></a>
                                         </center>
                                     </td>
                                 </tr>";
@@ -660,6 +660,8 @@ elseif($aksi=='buku'){
                     <div class='modal-body'>
                         <form role='form' enctype='multipart/form-data' method='post' action='master/buku.php?act=inputbuku'>
                             <div class='form-group'>
+                                <label>Kode Buku</label>
+                                <input type='text' class='form-control' name='barkode'/><br>
                                 <label>Judul Buku</label>
                                 <input type='text' class='form-control' name='judul'/><br>
                                 <label>Pengarang Buku</label>
@@ -668,6 +670,25 @@ elseif($aksi=='buku'){
                                 <input type='text' class='form-control' name='penerbit'/><br>
                                 <label>Tahun Terbit</label>
                                 <input type='text' class='form-control' name='thn_terbit'/><br>
+                                <label>Jenis Buku</label>
+                                <select class='form-control select2' style='width: 100%;'  name='jenis_buku'>
+                                    <option value='-'>--Pilih Jenis Buku--</option>
+                                    <option value='Sitem Informasi'>Sitem Informasi</option>
+                                    <option value='Bisnis Digital'>Bisnis Digital</option>
+                                    <option value='Manajemen'>Manajemen</option>
+                                    <option value='Teknik Elektro'>Teknik Elektro</option>
+                                    <option value='Teknik Ototmotif'>Teknik Ototmotif</option>
+                                    <option value='Manajemen Informatika'>Manajemen Informatika</option>
+                                </select><br><br>
+                                <label>Jenis</label>
+                                <select class='form-control select2' style='width: 100%;'  name='list'>
+                                    <option value='-'>--Pilih Jenis Buku--</option>
+                                    <option value='Skripsi'>Skripsi</option>
+                                    <option value='Tugas Akhir'>Tugas Akhir</option>
+                                    <option value='Buku'>Buku</option>
+                                </select><br><br>
+                                <label>Jumlah Halaman</label>
+                                <input type='text' class='form-control' name='jlh_hal'/><br>
                                 <label>Kode ISBN/BUKU</label>
                                 <input type='text' class='form-control' name='isbn'/><br>
                                 <label>Jumlah Buku</label>
@@ -701,27 +722,55 @@ elseif($aksi=='editbuku'){
             <div class='panel panel-default'>
                 <div class='panel-heading'>INFORMASI BUKU</div>
                 <div class='panel-body'>
-                    <form id='form1' enctype='multipart/form-data' method='post' action='master/buku.php?act=editbuku&id_buku=$id_buku&gb={$t['gambar']}'>
+                    <form id='form1' enctype='multipart/form-data' method='post' action='master/buku.php?act=editbuku&id_buku=$id_buku'>
                         <div class='form-group'>
-                            <label>Judul buku</label>
-                            <input type='text' value='{$t['judul']}' name='judul' class='form-control'/><br>
-                            <label>Pengarang Buku</label>
-                            <input type='text' class='form-control' value='{$t['pengarang']}' name='pengarang'/><br>
-                            <label>Penerbit Buku</label>
-                            <input type='text' class='form-control' value='{$t['penerbit']}' name='penerbit'/><br>
-                            <label>Tahun Terbit</label>
-                            <input type='text' class='form-control' value='{$t['thn_terbit']}' name='thn_terbit'/><br>
-                            <label>Kode ISBN/BUKU</label>
-                            <input type='text' class='form-control' value='{$t['isbn']}' name='isbn'/><br>
-                            <label>Jumlah Buku</label>
-                            <input type='text' class='form-control' value='{$t['jumlah_buku']}' name='jumlah_buku'/><br>
-                            <label>Tempat/Rak Buku</label>
-                            <input type='text' class='form-control' value='{$t['lokasi']}' name='lokasi'/><br>
-                            <input type='file' class='smallInput' size='50' name='gambar'/><br><br />";
-    if($t['gambar'] != 0){
-        echo "<img src='../foto/data/{$t['gambar']}' width='150' />";
-    }
-    echo "
+                        <label>Kode Buku</label>
+                        <input type='text' class='form-control' name='barkode' value='{$t['barkode']}'/><br>
+                        <label>Judul Buku</label>
+                        <input type='text' class='form-control' name='judul' value='{$t['judul']}'/><br>
+                        <label>Pengarang Buku</label>
+                        <input type='text' class='form-control' name='pengarang' value='{$t['pengarang']}'/><br>
+                        <label>Penerbit Buku</label>
+                        <input type='text' class='form-control' name='penerbit' value='{$t['penerbit']}'/><br>
+                        <label>Tahun Terbit</label>
+                        <input type='text' class='form-control' name='thn_terbit' value='{$t['thn_terbit']}'/><br>
+                        <label>Jenis Buku</label>
+                        <select class='form-control select2' style='width: 100%;'  name='jenis_buku'>
+                            <option value='$t[jenis_buku]'>$t[jenis_buku]</option>
+                            <option value='Sitem Informasi'>Sitem Informasi</option>
+                            <option value='Bisnis Digital'>Bisnis Digital</option>
+                            <option value='Manajemen'>Manajemen</option>
+                            <option value='Teknik Elektro'>Teknik Elektro</option>
+                            <option value='Teknik Ototmotif'>Teknik Ototmotif</option>
+                            <option value='Manajemen Informatika'>Manajemen Informatika</option>
+                        </select><br><br>
+                        <label>Jenis</label>
+                        <select class='form-control select2' style='width: 100%;'  name='list'>
+                            <option value='$t[list]'>$t[list]</option>
+                            <option value='Skripsi'>Skripsi</option>
+                            <option value='Tugas Akhir'>Tugas Akhir</option>
+                            <option value='Buku'>Buku</option>
+                        </select><br><br>
+                        <label>Jumlah Halaman</label>
+                        <input type='text' class='form-control' name='jlh_hal' value='{$t['jlh_hal']}'/><br>
+                        <label>Kode ISBN/BUKU</label>
+                        <input type='text' class='form-control' name='isbn' value='{$t['isbn']}'/><br>
+                        <label>Jumlah Buku</label>
+                        <input type='text' class='form-control' name='jumlah_buku' value='{$t['jumlah_buku']}'/><br>
+                        <label>Tempat/Rak Buku</label>
+                        <input type='text' class='form-control' name='lokasi' value='{$t['lokasi']}'/><br>
+                        <label>Gambar</label>
+                        <input type='file' class='smallInput' size='50' name='gambar'/><br>";
+                        if($t['gambar'] != 0){
+                            echo "<img src='../foto/data/{$t['gambar']}' width='150' />";
+                        }
+                        echo " <label>FILE BUKU</label>
+                        <input type='file' class='smallInput' size='50' name='data_upload'/><br>";
+                        if($t['file_upload'] != 0){
+                            echo "<a href='../foto/fileupload/$t[file_upload]'>$t[file_upload] </a>";
+                        }
+echo"
+
                             <div class='modal-footer'>
                                 <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                 <button type='submit' class='btn btn-primary'>Save</button>
