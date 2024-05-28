@@ -1,6 +1,6 @@
 <?php
 //siswa
-function Uploadsiswa($fupload_name){
+function Uploadsiswa(string $fupload_name): void {
   //direktori gambar
   $vdir_upload = "foto/pendaftar/";
   $vfile_upload = $vdir_upload . $fupload_name;
@@ -10,8 +10,8 @@ function Uploadsiswa($fupload_name){
 
   //identitas file asli
   $im_src = imagecreatefromjpeg($vfile_upload);
-  $src_width = imageSX($im_src);
-  $src_height = imageSY($im_src);
+  $src_width = imagesx($im_src);
+  $src_height = imagesy($im_src);
 
   //Simpan dalam versi small 110 pixel
   //Set ukuran gambar hasil perubahan
@@ -47,7 +47,7 @@ function Uploadsiswa($fupload_name){
 
 
 //siswa
-function Uploadkk($fupload_name){
+function Uploadkk(string $fupload_name): void {
   //direktori gambar
   $vdir_upload = "foto/kk/";
   $vfile_upload = $vdir_upload . $fupload_name;
@@ -59,7 +59,7 @@ function Uploadkk($fupload_name){
 
 
 //siswa
-function Uploadijasah($fupload_name){
+function Uploadijasah(string $fupload_name): void {
    //direktori gambar
   $vdir_upload = "foto/ijasah/";
   $vfile_upload = $vdir_upload . $fupload_name;
@@ -72,7 +72,7 @@ function Uploadijasah($fupload_name){
 
 
 //siswa
-function Uploadakte($fupload_name){
+function Uploadakte(string $fupload_name): void {
    //direktori gambar
   $vdir_upload = "foto/akte/";
   $vfile_upload = $vdir_upload . $fupload_name;
@@ -85,7 +85,7 @@ function Uploadakte($fupload_name){
 
 
 //siswa
-function Uploadskhu($fupload_name){
+function Uploadskhu(string $fupload_name): void {
      //direktori gambar
   $vdir_upload = "foto/skhu/";
   $vfile_upload = $vdir_upload . $fupload_name;
@@ -94,25 +94,5 @@ function Uploadskhu($fupload_name){
   move_uploaded_file($_FILES["skhu"]["tmp_name"], $vfile_upload);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
+

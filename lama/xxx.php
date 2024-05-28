@@ -89,7 +89,7 @@ include 'config/transaksi_fungsi.php';
                 <i class="fa fa-bar-chart-o fa-fw"></i><span> Daftar Buku</span> <i class='fa fa-angle-left pull-right'></i>
               </a> 
  </li>
-      <? if( $_SESSION['anggota']==''){?>
+      <?php if( $_SESSION['anggota']==''){?>
 <li>
               <a href='xxx.php?module=daftarango'>
                 <i class="fa fa-sitemap fa-fw"></i><span> Daftar Angota</span> <i class='fa fa-angle-left pull-right'></i>
@@ -100,7 +100,7 @@ include 'config/transaksi_fungsi.php';
                  <i class="fa fa-edit fa-fw"></i><span> Login Angota</span> <i class='fa fa-angle-left pull-right'></i>
               </a> 
  </li>
- <? }else{?>
+ <?php }else{?>
           <!-- sidebar menu: : style can be found in sidebar.less -->
     
 
@@ -119,7 +119,7 @@ include 'config/transaksi_fungsi.php';
 
 	  <li><a href=logout.php><i class='fa fa-cog'></i> <span>Logout</span> <i class='fa fa-angle-left pull-right'></i></a> </li>
 
-	  <? }?>
+	  <?php }?>
                     
                 </ul>
                 <!-- end side-menu -->
