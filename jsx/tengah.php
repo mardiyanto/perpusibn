@@ -631,7 +631,7 @@ elseif($aksi=='buku'){
                                     <td>$t[judul]</td>
                                     <td>$t[pengarang]</td>
                                     <td>$t[penerbit]</td>
-                                    <td>$t[jumlah_buku]</td>
+                                    <td>$t[jumlah_buku] $t[list]</td>
                                     <td>
                                         <center>
                                             <a href='index.php?aksi=editbuku&id_buku=$t[id_buku]' title='Edit'><i class='fa fa-pencil'></i></a>&nbsp;

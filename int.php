@@ -222,7 +222,7 @@ $t=mysqli_fetch_array($tebaru);
                             </div>
 
             <div class='box-footer'>
-              <a class='btn btn-default' href=index.aspx>Kembali</a> 
+              <a class='btn btn-default' href=index.php>Kembali</a> 
 			 
             </div><!-- /.box-footer-->
           </div><!-- /.box -->
@@ -232,87 +232,7 @@ $t=mysqli_fetch_array($tebaru);
 }
 
 
-elseif ($_GET['module']=='pinjambuku'){
 
-if(empty($_SESSION['nim']) || empty($_SESSION['pass'])){
-echo "<script>window.alert('Silahkan login atau daftar untuk meminjam buku');
-        window.location=('xxx.php?module=daftar')</script>";
-
-}else{	
-$pinjam			= date("d-m-Y");
-$tuju_hari		= mktime(0,0,0,date("n"),date("j")+7,date("Y"));
-$kembali		= date("d-m-Y", $tuju_hari);
-	$tebaru=mysqli_query($koneksi, "SELECT * FROM tbl_buku WHERE id_buku=$_GET[id]");
-$t=mysqli_fetch_array($tebaru);
- echo "<section class='content'>
-
-          <!-- Default box -->
-          <div class='box'>
-            <div class='box-header with-border'>
-              <h4><i class='icon fa fa-warning'></i> Detail Buku</h4>
-              <div class='box-tools pull-right'>
-           
-                <button class='btn btn-box-tool' data-widget='remove' data-toggle='tooltip' title='Remove'><i class='fa fa-times'></i></button>
-              </div>
-            </div>
-	<form name='form1' id='form_combo' role='form'  method='post' action='xxx.php?module=prosespinjam'>
- 
-        <div style='font-weigth:bold; font-size:15px; border-bottom: 1px solid #000000; margin-bottom:5px;'>Peminjam Buku di beri waktu 1 minggu jika dalam satu minggu buku tidak di kembalikan makan akan kena denda Rp.2.000 /Hari</div>
-    	<div class='col-md-6'>
-		<label>Kode Buku</label>
-		<div class='form-group input-group'>
-        <input type='text' class='form-control'  value='SMA/$t[isbn], $t[id_buku]'  disabled='disabled'>
-		 <input type='hidden' class='form-control' value='SMA/$t[isbn]'  name='no_daftar'>
-		  <input type='hidden' class='form-control' value='$t[id_buku]'  name='id_buku'>
-		  <input type='hidden' class='form-control' value='$_SESSION[nim]'  name='id_mhs'>
-		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-		
-		<label>Judul Buku</label>
-			<div class='form-group input-group'>
-        <input type='text' class='form-control' value='$t[judul]'  name='buku' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
-		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-		
-		<label>Nama Peminjam Buku</label>
-			<div class='form-group input-group'>
-        <input type='text' class='form-control' value='$_SESSION[nama]'  name='peminjam' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
-		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-				
-	</div>
-	<div class='col-md-6'>	
-<label>Tanggal Pinjam</label>
-		 <div class='form-group input-group'>
-        <input type='text' class='form-control'  value='$pinjam'  disabled='disabled'>
-		 <input type='hidden' class='form-control' value='$pinjam'  name='tgl_pinjam'>
-		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-		
-		<label>Tanggal Kembali</label>
-		 <div class='form-group input-group'>
-        <input type='text' class='form-control'  value='$kembali'  disabled='disabled'>
-		 <input type='hidden' class='form-control' value='$kembali'  name='tgl_kembali'>
-		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-
-<label>Keterangan </label>
-			<div class='form-group input-group'>
-        <input type='text' class='form-control'  name='ket' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
-		<span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
-				
-		</div> 
-				
-		<br />
-		<div class='col-md-12'>
-            <button class='btn btn-primary btn-sm' type='submit'>Pinjam</button>
-          
-			<a href='index.aspx' class='btn btn-primary btn-sm'>Kembali</a></div>
-   </form> 
-            <div class='box-footer'>
-       
-            </div><!-- /.box-footer-->
-          </div><!-- /.box -->
-
-        </section>";
-
-}
-}
 
 elseif ($_GET['module']=='daftar'){
 
@@ -355,7 +275,7 @@ elseif ($_GET['module']=='daftar'){
 		<div class='col-md-12'>
             <button class='btn btn-primary btn-sm' type='submit'>Login</button>
           
-			<a href='index.aspx' class='btn btn-primary btn-sm'>Kembali</a></div>
+			<a href='index.php' class='btn btn-primary btn-sm'>Kembali</a></div>
 	</form>
               </div></div></div>
               <!-- /.tab-pane -->
@@ -430,7 +350,7 @@ elseif ($_GET['module']=='daftar'){
 		<div class='col-md-12'>
             <button class='btn btn-primary btn-sm' type='submit'>Daftar</button>
           
-			<a href='index.aspx' class='btn btn-primary btn-sm'>Kembali</a></div>
+			<a href='index.php' class='btn btn-primary btn-sm'>Kembali</a></div>
    </form> 
  ";
 
@@ -519,7 +439,7 @@ elseif ($_GET['module']=='daftarango'){
 		<div class='col-md-12'>
             <button class='btn btn-primary btn-sm' type='submit'>Daftar</button>
           
-			<a href='index.aspx' class='btn btn-primary btn-sm'>Kembali</a></div>
+			<a href='index.php' class='btn btn-primary btn-sm'>Kembali</a></div>
    </form> 
  ";
 
@@ -565,7 +485,7 @@ elseif ($_GET['module']=='loginango'){
 		<div class='col-md-12'>
             <button class='btn btn-primary btn-sm' type='submit'>Login</button>
           
-			<a href='index.aspx' class='btn btn-primary btn-sm'>Kembali</a></div>
+			<a href='index.php' class='btn btn-primary btn-sm'>Kembali</a></div>
 	</form>
               </div>
 			  
@@ -648,6 +568,87 @@ elseif ($_GET['module']=='histori'){
         </div>   ";
 
 }
+elseif ($_GET['module']=='pinjambuku'){
+
+  if(empty($_SESSION['nim']) || empty($_SESSION['pass'])){
+  echo "<script>window.alert('Silahkan login atau daftar untuk meminjam buku');
+          window.location=('xxx.php?module=daftar')</script>";
+  
+  }else{	
+  $pinjam			= date("d-m-Y");
+  $tuju_hari		= mktime(0,0,0,date("n"),date("j")+7,date("Y"));
+  $kembali		= date("d-m-Y", $tuju_hari);
+    $tebaru=mysqli_query($koneksi, "SELECT * FROM tbl_buku WHERE id_buku=$_GET[id]");
+  $t=mysqli_fetch_array($tebaru);
+   echo "<section class='content'>
+  
+            <!-- Default box -->
+            <div class='box'>
+              <div class='box-header with-border'>
+                <h4><i class='icon fa fa-warning'></i> Detail Buku</h4>
+                <div class='box-tools pull-right'>
+             
+                  <button class='btn btn-box-tool' data-widget='remove' data-toggle='tooltip' title='Remove'><i class='fa fa-times'></i></button>
+                </div>
+              </div>
+    <form name='form1' id='form_combo' role='form'  method='post' action='xxx.php?module=prosespinjam'>
+   
+          <div style='font-weigth:bold; font-size:15px; border-bottom: 1px solid #000000; margin-bottom:5px;'>Peminjam Buku di beri waktu 1 minggu jika dalam satu minggu buku tidak di kembalikan makan akan kena denda Rp.2.000 /Hari</div>
+        <div class='col-md-6'>
+      <label>Kode Buku</label>
+      <div class='form-group input-group'>
+          <input type='text' class='form-control'  value='SMA/$t[isbn], $t[id_buku]'  disabled='disabled'>
+       <input type='hidden' class='form-control' value='SMA/$t[isbn]'  name='no_daftar'>
+        <input type='hidden' class='form-control' value='$t[id_buku]'  name='id_buku'>
+        <input type='hidden' class='form-control' value='$_SESSION[nim]'  name='id_mhs'>
+      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
+      
+      <label>Judul Buku</label>
+        <div class='form-group input-group'>
+          <input type='text' class='form-control' value='$t[judul]'  name='buku' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
+      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
+      
+      <label>Nama Peminjam Buku</label>
+        <div class='form-group input-group'>
+          <input type='text' class='form-control' value='$_SESSION[nama]'  name='peminjam' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
+      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
+          
+    </div>
+    <div class='col-md-6'>	
+  <label>Tanggal Pinjam</label>
+       <div class='form-group input-group'>
+          <input type='text' class='form-control'  value='$pinjam'  disabled='disabled'>
+       <input type='hidden' class='form-control' value='$pinjam'  name='tgl_pinjam'>
+      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
+      
+      <label>Tanggal Kembali</label>
+       <div class='form-group input-group'>
+          <input type='text' class='form-control'  value='$kembali'  disabled='disabled'>
+       <input type='hidden' class='form-control' value='$kembali'  name='tgl_kembali'>
+      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
+  
+  <label>Keterangan </label>
+        <div class='form-group input-group'>
+          <input type='text' class='form-control'  name='ket' id='Namalengkap' onKeyUp=\"this.value=this.value.replace(/[^A-Z | a-z]/g,'')\"/ required>
+      <span class='input-group-addon'><i class='fa fa-spinner fa' aria-hidden='true'></i></span></div>
+          
+      </div> 
+          
+      <br />
+      <div class='col-md-12'>
+              <button class='btn btn-primary btn-sm' type='submit'>Pinjam</button>
+            
+        <a href='index.php' class='btn btn-primary btn-sm'>Kembali</a></div>
+     </form> 
+              <div class='box-footer'>
+         
+              </div><!-- /.box-footer-->
+            </div><!-- /.box -->
+  
+          </section>";
+  
+  }
+  }
 // Modul hubungi aksi
 elseif ($_GET['module']=='prosespinjam'){
 
@@ -668,8 +669,8 @@ $ket			= isset($_POST['ket']) ? $_POST['ket'] : "";
 		echo "<meta http-equiv='refresh' content='0; url=index.php'>";
 	
 	} else {
-		$qt = mysqli_query($koneksi, "INSERT INTO tbl_transaksi VALUES (null, '$dapat_buku','$id_mhs', '$dapat_mhs', '$tgl_pinjam', '$tgl_kembali', 'Pinjam', '$ket')")
-		
+    $qt = mysqli_query($koneksi, "INSERT INTO tbl_transaksi (kode,judul,nim,nama,tgl_pinjam,tgl_kembali,status,ket) 
+                values ('$_POST[no_daftar]','$dapat_buku','$id_mhs','$dapat_mhs','$tgl_pinjam','$tgl_kembali','pinjam','$ket')")
 		or die ("Gagal Masuk".mysqli_error($koneksi));
 		$qu			= mysqli_query($koneksi, "UPDATE tbl_buku SET jumlah_buku=(jumlah_buku-1) WHERE id_buku=$id_buku ");		
 		if ($qt&&$qu) {
@@ -713,7 +714,7 @@ elseif ($_GET['module']=='pesanwarning'){
 					</p>
               </div>
             <div class='box-footer'>
-              <a href=index.aspx>Kembali</a>
+              <a href=index.php>Kembali</a>
             </div><!-- /.box-footer-->
           </div><!-- /.box -->
 

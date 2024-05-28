@@ -1,16 +1,18 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 function timer(){
 	$time=1000;
-	$_SESSION[timeout]=time()+$time;
+	$_SESSION['timeout'] = time() + $time;
 }
 function cek_login(){
-	$timeout=$_SESSION[timeout];
-	if(time()<$timeout){
+	$timeout = $_SESSION['timeout'];
+	if(time() < $timeout){
 		timer();
 		return true;
 	}else{
-		unset($_SESSION[timeout]);
+		unset($_SESSION['timeout']);
 		return false;
 	}
 }
