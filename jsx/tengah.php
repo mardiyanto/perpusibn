@@ -877,26 +877,91 @@ elseif($aksi=='editangota'){
     </div>";
 }
 elseif($aksi=='laporan'){
-    echo "<div class='row'>
-            <div class='col-lg-12'>
-                <h1 class='page-header'>Laporan Transaksi Buku</h1>
+        $tgl_awal = isset($_POST['tgl_awal']) ? $_POST['tgl_awal'] : '';
+        $tgl_akhir = isset($_POST['tgl_akhir']) ? $_POST['tgl_akhir'] : '';
+        echo "
+            <div class='row'>
+               <div class='col-lg-12'>
+                    <div class='panel panel-default'>
+                        <div class='panel-heading'>
+                            <i class='fa fa-bar-chart-o fa-fw'></i> Laporan Transaksi Buku
+                        </div>
+                        <div class='panel-body'>
+                <form method='post' action='?aksi=laporan' class='mb-4'>
+                    <div class='form-row'>
+                        <div class='form-group col-md-4'>
+                            <label for='tgl_awal'>Tanggal Awal:</label>
+                            <input type='date' id='tgl_awal' name='tgl_awal' value='$_POST[tgl_awal]' class='form-control' required>
+                        </div>
+                        <div class='form-group col-md-4'>
+                            <label for='tgl_akhir'>Tanggal Akhir:</label>
+                            <input type='date' id='tgl_akhir' name='tgl_akhir' value='$_POST[tgl_akhir]' class='form-control' required>
+                        </div>
+                        <div class='form-group col-md-4 align-self-end'>
+                            <button type='submit' class='btn btn-primary'>Tampilkan</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <div class='row'>
-            <div class='col-lg-12'>
-                <div class='panel panel-default'>
-                    <div class='panel-heading'>
-                        <i class='fa fa-bar-chart-o fa-fw'></i> Laporan Transaksi Buku
-                                       </div>
-                    <div class='panel-body'>
-                        <div class='table-responsive'>";
-    include "mod_laporan/laporan.php";
-    echo "
+             </div>
+              </div>";
+    
+        if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+            $sql = "SELECT * FROM tbl_transaksi WHERE tgl_pinjam BETWEEN '$tgl_awal' AND '$tgl_akhir'";
+            $result = $koneksi->query($sql);
+    
+            echo "
+                <div class='col-lg-12'>
+                    <div class='panel panel-default'>
+                        <div class='panel-heading'>
+                            <i class='fa fa-bar-chart-o fa-fw'></i> Laporan Transaksi Buku
+                        </div>
+                        <div class='panel-body'>
+                            <div class='table-responsive'>
+                                <table class='table table-bordered'>
+                                    <thead class='thead-dark'>
+                                        <tr>
+                                            <th>Judul</th>
+                                            <th>NIM</th>
+                                            <th>Nama</th>
+                                            <th>Tanggal Pinjam</th>
+                                            <th>Tanggal Kembali</th>
+                                            <th>Status</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+                                        if ($result && $result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo "<tr>
+                                                        <td>{$row['judul']}</td>
+                                                        <td>{$row['nim']}</td>
+                                                        <td>{$row['nama']}</td>
+                                                        <td>{$row['tgl_pinjam']}</td>
+                                                        <td>{$row['tgl_kembali']}</td>
+                                                        <td>{$row['status']}</td>
+                                                        <td>{$row['ket']}</td>
+                                                    </tr>";
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='9'>Tidak ada data</td></tr>";
+                                        }
+                                        echo "
+                                    </tbody>
+                                </table>
+                            </div>
+                            <form method='post' action='generate_pdf.php'>
+                                <input type='hidden' name='tgl_awal' value='$tgl_awal'>
+                                <input type='hidden' name='tgl_akhir' value='$tgl_akhir'>
+                                <button type='submit' class='btn btn-success'>Cetak PDF</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>";
-}
+         ";
+        }
+        echo "
+        </div>
+";
+    }
 ?>

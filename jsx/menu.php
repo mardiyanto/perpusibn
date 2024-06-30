@@ -27,7 +27,7 @@
           <ul class="treeview-menu">
  <li class="active"><a href="index.php?aksi=buku"><i class="fa fa-circle-o"></i> <span>Data Buku</span>
          <span class="label bg-blue pull-right"><?php echo"$kk";?></span></a></li>
-            <li class="active"><a href="index.php?aksi=pendaftaran"><i class="fa fa-circle-o"></i> <span>Laporan Data Buku</span>
+            <li class="active"><a href="index.php?aksi=laporan"><i class="fa fa-circle-o"></i> <span>Laporan Data Buku</span>
         </a></li>
           </ul>
         </li>  
